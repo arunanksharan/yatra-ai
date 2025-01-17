@@ -1,5 +1,12 @@
 import axios from 'axios';
 
+const yourBearerToken = process.env.AMADEUS_API_KEY;
+console.log(`Bearer token: ${yourBearerToken}`);
+// Check if AMADEUS_API_KEY is defined
+if (!process.env.AMADEUS_API_KEY) {
+  throw new Error('Missing AMADEUS_API_KEY environment variable');
+}
+
 const locationCode: Record<string, string> = {
   mumbai: 'BOM',
   shillong: 'SHL',
@@ -54,7 +61,6 @@ export const getFlightOfferings = async (input: InputData): Promise<any> => {
       travelClass,
     });
     console.log(`Params: ${params}`);
-    const yourBearerToken = process.env.AMADEUS_API_KEY;
 
     // API call
     const response = await axios.get(
